@@ -50,9 +50,11 @@ const Navbar = () => {
               {l.label}
             </a>
           ))}
-          <Button className="w-full mt-2 bg-secondary text-secondary-foreground hover:bg-secondary/90 rounded-full">
-            Contact Us
-          </Button>
+          <Link to="/contact" onClick={() => setOpen(false)}>
+            <Button className="w-full mt-2 bg-secondary text-secondary-foreground hover:bg-secondary/90 rounded-full">
+              Contact Us
+            </Button>
+          </Link>
         </div>
       )}
     </nav>
