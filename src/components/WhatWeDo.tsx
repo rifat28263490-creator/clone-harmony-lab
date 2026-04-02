@@ -1,53 +1,95 @@
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SlideInLeft, SlideInRight } from "@/components/AnimatedSection";
+import { motion } from "framer-motion";
+
+const features = [
+  "End-to-end product development",
+  "Agile methodology & iterative delivery",
+  "Scalable & maintainable architecture",
+  "Dedicated project management",
+];
 
 const WhatWeDo = () => {
   return (
-    <section id="about" className="py-20 bg-background">
+    <section id="about" className="py-24 bg-background">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left - Images */}
           <SlideInLeft>
-            <div className="relative flex gap-4 items-start">
-              <div className="flex flex-col gap-4">
-                <div className="w-4 h-4 rounded-full bg-muted" />
-                <div className="w-4 h-4 rounded-full bg-secondary" />
+            <div className="relative">
+              {/* Main image */}
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-primary/10">
+                <img
+                  src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=500&fit=crop"
+                  alt="Coding"
+                  className="w-full h-[400px] object-cover"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
               </div>
-              <div className="flex gap-4">
-                <div className="w-40 h-40 md:w-52 md:h-52 rounded-2xl bg-primary/20 overflow-hidden">
-                  <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=400&fit=crop" alt="Coding" className="w-full h-full object-cover" />
+              {/* Floating card */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+                className="absolute -bottom-6 -right-4 md:right-6 bg-card/80 backdrop-blur-lg border border-border/30 rounded-2xl p-5 shadow-xl"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-xl bg-secondary/20 flex items-center justify-center">
+                    <span className="text-secondary font-bold text-lg">5+</span>
+                  </div>
+                  <div>
+                    <p className="text-foreground font-bold text-sm">Years</p>
+                    <p className="text-muted-foreground text-xs">of Experience</p>
+                  </div>
                 </div>
-                <div className="w-40 h-40 md:w-52 md:h-52 rounded-2xl bg-primary/20 overflow-hidden mt-8">
-                  <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=400&fit=crop" alt="Development" className="w-full h-full object-cover" />
-                </div>
-              </div>
+              </motion.div>
+              {/* Small accent image */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="absolute -top-4 -left-4 w-24 h-24 rounded-2xl overflow-hidden border-4 border-background shadow-lg hidden md:block"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=200&h=200&fit=crop"
+                  alt="Development"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </motion.div>
             </div>
           </SlideInLeft>
 
           {/* Right - Content */}
           <SlideInRight delay={0.15}>
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              <span className="text-secondary text-sm font-semibold tracking-widest uppercase mb-3 block">About Us</span>
+              <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4 leading-tight">
                 What <span className="text-secondary italic">We Do</span>
               </h2>
-              <p className="text-lg text-primary font-medium mb-2">Custom Software Development Solutions</p>
-              <p className="text-muted-foreground mb-6">
+              <p className="text-lg text-primary font-medium mb-3">Custom Software Development Solutions</p>
+              <p className="text-muted-foreground mb-8 leading-relaxed">
                 We build future-ready digital products and experiences that drive business growth.
                 Our expert team delivers cutting-edge solutions tailored to your unique needs.
               </p>
 
-              <div className="space-y-3 mb-8">
-                {["End-to-end product development", "Agile methodology & iterative delivery", "Scalable & maintainable architecture"].map((item) => (
-                  <div key={item} className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-primary shrink-0" />
-                    <span className="text-muted-foreground text-sm">{item}</span>
+              <div className="space-y-4 mb-8">
+                {features.map((item, i) => (
+                  <div key={item} className="flex items-center gap-3 group">
+                    <div className="w-6 h-6 rounded-full bg-secondary/15 flex items-center justify-center shrink-0 group-hover:bg-secondary/25 transition-colors">
+                      <CheckCircle className="w-4 h-4 text-secondary" />
+                    </div>
+                    <span className="text-muted-foreground text-sm group-hover:text-foreground transition-colors">{item}</span>
                   </div>
                 ))}
               </div>
 
-              <Button className="bg-secondary text-secondary-foreground hover:bg-secondary/90 rounded-full px-8">
-                Learn More
+              <Button className="bg-secondary text-secondary-foreground hover:bg-secondary/90 rounded-full px-8 py-6 text-base font-semibold shadow-lg shadow-secondary/20">
+                Learn More <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </div>
           </SlideInRight>
