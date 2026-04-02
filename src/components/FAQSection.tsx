@@ -25,11 +25,11 @@ const FAQSection = () => {
         <AnimatedSection delay={0.2}>
           <Accordion type="single" collapsible className="space-y-3">
             {faqs.map((f, i) => (
-              <AccordionItem key={i} value={`item-${i}`} className="border border-secondary/50 rounded-xl px-5 bg-secondary/5 data-[state=open]:bg-secondary">
-                <AccordionTrigger className="text-left text-sm md:text-base text-foreground hover:no-underline data-[state=open]:text-secondary-foreground font-semibold">
+              <AccordionItem key={i} value={`item-${i}`} className="group border border-secondary/50 rounded-xl px-5 bg-secondary/5 data-[state=open]:bg-secondary">
+                <AccordionTrigger className="text-left text-sm md:text-base text-foreground hover:no-underline group-data-[state=open]:text-secondary-foreground font-semibold">
                   {f.q}
                 </AccordionTrigger>
-                <AccordionContent className="text-sm text-muted-foreground data-[state=open]:text-secondary-foreground/70">
+                <AccordionContent className="text-sm text-muted-foreground group-data-[state=open]:text-secondary-foreground/70">
                   {f.a}
                 </AccordionContent>
               </AccordionItem>
