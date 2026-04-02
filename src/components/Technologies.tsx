@@ -1,24 +1,43 @@
 import { useState } from "react";
-import { AnimatedSection, ScaleIn } from "@/components/AnimatedSection";
+import { motion, AnimatePresence } from "framer-motion";
+import { AnimatedSection } from "@/components/AnimatedSection";
 
 const tabs = ["All", "Mobile", "Frontend", "Backend", "Cloud", "DevOps/Others"];
 
-const techData: Record<string, { name: string; color: string }[]> = {
+const techData: Record<string, { name: string; color: string; initial: string }[]> = {
   Frontend: [
-    { name: "React", color: "#61DAFB" },
-    { name: "Angular", color: "#DD0031" },
-    { name: "Vue.js", color: "#4FC08D" },
-    { name: "Swift", color: "#FA7343" },
-    { name: ".NET", color: "#512BD4" },
-    { name: "Flutter", color: "#02569B" },
+    { name: "React", color: "#61DAFB", initial: "R" },
+    { name: "Angular", color: "#DD0031", initial: "A" },
+    { name: "Vue.js", color: "#4FC08D", initial: "V" },
+    { name: "Swift", color: "#FA7343", initial: "S" },
+    { name: ".NET", color: "#512BD4", initial: "·" },
+    { name: "Flutter", color: "#02569B", initial: "F" },
   ],
   Backend: [
-    { name: "Node.js", color: "#339933" },
-    { name: "Python", color: "#3776AB" },
-    { name: "Java", color: "#ED8B00" },
-    { name: "Go", color: "#00ADD8" },
-    { name: "Ruby", color: "#CC342D" },
-    { name: "PHP", color: "#777BB4" },
+    { name: "Node.js", color: "#339933", initial: "N" },
+    { name: "Python", color: "#3776AB", initial: "P" },
+    { name: "Java", color: "#ED8B00", initial: "J" },
+    { name: "Go", color: "#00ADD8", initial: "G" },
+    { name: "Ruby", color: "#CC342D", initial: "R" },
+    { name: "PHP", color: "#777BB4", initial: "P" },
+  ],
+  Mobile: [
+    { name: "React Native", color: "#61DAFB", initial: "R" },
+    { name: "Flutter", color: "#02569B", initial: "F" },
+    { name: "Swift", color: "#FA7343", initial: "S" },
+    { name: "Kotlin", color: "#7F52FF", initial: "K" },
+  ],
+  Cloud: [
+    { name: "AWS", color: "#FF9900", initial: "A" },
+    { name: "Azure", color: "#0078D4", initial: "A" },
+    { name: "GCP", color: "#4285F4", initial: "G" },
+    { name: "Docker", color: "#2496ED", initial: "D" },
+  ],
+  "DevOps/Others": [
+    { name: "Jenkins", color: "#D24939", initial: "J" },
+    { name: "Terraform", color: "#7B42BC", initial: "T" },
+    { name: "Kubernetes", color: "#326CE5", initial: "K" },
+    { name: "Git", color: "#F05032", initial: "G" },
   ],
 };
 
@@ -42,15 +61,15 @@ const Technologies = () => {
         </AnimatedSection>
 
         {/* Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
+        <div className="flex flex-wrap justify-center gap-2 mb-12">
           {tabs.map((t) => (
             <button
               key={t}
               onClick={() => setActive(t)}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
+              className={`relative px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
                 active === t
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-secondary-foreground/10 text-secondary-foreground hover:bg-secondary-foreground/20"
+                  ? "bg-primary text-primary-foreground shadow-lg"
+                  : "bg-secondary-foreground/10 text-secondary-foreground hover:bg-secondary-foreground/20 border border-secondary-foreground/20"
               }`}
             >
               {t}
@@ -59,20 +78,33 @@ const Technologies = () => {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-6">
-          {displayed.map((tech, i) => (
-            <ScaleIn key={`${active}-${i}`} delay={i * 0.06}>
-              <div className="flex flex-col items-center gap-2">
-                <div className="w-16 h-16 rounded-xl bg-white flex items-center justify-center shadow-sm hover:scale-110 transition-transform duration-300">
-                  <span className="text-2xl font-bold" style={{ color: tech.color }}>
-                    {tech.name.charAt(0)}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={active}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-8 max-w-4xl mx-auto"
+          >
+            {displayed.map((tech, i) => (
+              <motion.div
+                key={`${active}-${tech.name}`}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3, delay: i * 0.05 }}
+                className="flex flex-col items-center gap-3 group cursor-pointer"
+              >
+                <div className="w-20 h-20 rounded-2xl bg-background/90 flex items-center justify-center shadow-md group-hover:shadow-xl group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-300 border border-border/10">
+                  <span className="text-3xl font-bold" style={{ color: tech.color }}>
+                    {tech.initial}
                   </span>
                 </div>
-                <span className="text-secondary-foreground text-xs font-medium">{tech.name}</span>
-              </div>
-            </ScaleIn>
-          ))}
-        </div>
+                <span className="text-secondary-foreground text-xs font-semibold tracking-wide">{tech.name}</span>
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   );
