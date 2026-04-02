@@ -30,9 +30,11 @@ const Navbar = () => {
           ))}
         </div>
 
-        <Button className="hidden md:inline-flex bg-secondary text-secondary-foreground hover:bg-secondary/90 rounded-full px-6">
-          Contact Us
-        </Button>
+        <Link to="/contact">
+          <Button className="hidden md:inline-flex bg-secondary text-secondary-foreground hover:bg-secondary/90 rounded-full px-6">
+            Contact Us
+          </Button>
+        </Link>
 
         {/* Mobile toggle */}
         <button className="md:hidden text-foreground" onClick={() => setOpen(!open)}>
