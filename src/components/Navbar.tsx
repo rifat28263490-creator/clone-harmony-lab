@@ -17,7 +17,7 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/30">
       <div className="container mx-auto flex items-center justify-between py-4 px-4 lg:px-8">
         <a href="#home" className="flex items-center">
-          <img src="/logo.svg" alt="Finixcode" className="h-6" />
+          <img src="/logo.svg" alt="Finixcode" className="h-10" />
         </a>
 
         {/* Desktop */}
